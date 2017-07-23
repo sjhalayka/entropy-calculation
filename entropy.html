@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+Input string: <input id="input_string" type="text">
+<button type="button" onclick="print_entropy()">Get String Entropy</button>
+<p id="output"></p>
+
+<script>
+function print_entropy()
+{
+	var str = document.getElementById("input_string").value;
+	document.getElementById("input_string").value = "";
+
+	var output_str = "String: \"" + str + "\"<br>";
+	var len = str.length;
+
+	if(len > 0)
+	{	
+		var entropy = 0.0;
+
+		output_str = output_str + "String length: " + len + "<br><br>";
+
+		var char_array = new Array();
+
+		for(var i = 0; i < str.length; i++)
+			char_array[str[i]] = 0;
+
+		for(var i = 0; i < str.length; i++)
+			char_array[str[i]]++;
+
+		var entropy = 0.0;
+
+		for(key in char_array)
+		{
+			var probability = char_array[key] / len;
+
+			output_str = output_str + "Character: \'" + key + "\', Count: " + char_array[key] + ", Probability: " + probability + "<br>";
+
+			entropy += probability * Math.log(probability);
+		}
+
+		entropy = -entropy;
+
+		output_str = output_str + "<br>Entropy: " + entropy +  "<br>";
+
+		document.getElementById("output").innerHTML = output_str;
+	}
+	else
+	{
+		document.getElementById("output").innerHTML = "";
+	}
+}
+</script>
+
+</body>
+</html> 
